@@ -1,1 +1,4 @@
-SQLALCHEMY_DATABASE_URI ="sqlite:///database.db"
+SQLALCHEMY_DATABASE_URI = "sqlite:///database.db"
+
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "123"

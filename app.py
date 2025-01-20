@@ -1,11 +1,13 @@
 from flask import Flask
 from blueprint.general import app as general
 from blueprint.admin import app as admin
+from blueprint.user import app as user
 import extentions
 import config
 app = Flask(__name__)
 app.register_blueprint(general)
 app.register_blueprint(admin)
+app.register_blueprint(user)
 
 
 
