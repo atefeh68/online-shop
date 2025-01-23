@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>login page</title>
-</head>
-<body>
- <h1>ورود به پنل مدیریت</h1>
+{% extends 'base.html' %}
+{% block header %}
+ <title>admin login </title>
+
+{% endblock %}
+
+{% block body %}
+<h1>ورود به پنل مدیریت</h1>
         <form action="#" method="post">
             <label>
                 <input type="text" name="username" placeholder="نام کاربری"><br>
@@ -15,6 +15,4 @@
             </label><br>
             <input type="submit" value="ورود">
         </form>
-
-</body>
-</html>
+{% endblock %}

@@ -1,12 +1,14 @@
 from flask import Blueprint, render_template, request, redirect, session, abort
 import config
+from extentions import db
+from models.product import Product
 
 app = Blueprint('admin', __name__)
 
 @app.before_request
 def before_request():
 
-    if  session.get('admin_login', None) is None and request.endpoint != 'admin/login' :
+    if  session.get('admin_login', None) is None and request.endpoint != 'admin.login' :
         abort(403)
 
 @app.route('/admin/login',methods=["POST", "GET"])
@@ -26,12 +28,27 @@ def login():
 
 @app.route('/admin/dashboard', methods=["GET"])
 def dashboard():
-    if session.get('admin_login', None) is None:
-        abort(403)
-    return "dashboard"
+    return render_template("admin/dashboard.html")
 
-@app.route('/admin/dashboard/product', methods=["GET"])
+@app.route('/admin/dashboard/products', methods=["GET","POST"])
 def product():
-    if session.get('admin_login', None) is None:
-        abort(403)
-    return "product"
+    if request.method == "GET":
+       products = Product.query.all()
+       i=0
+       return render_template("admin/products.html",products=products)
+    else:
+        name = request.form.get('name', None)
+        description = request.form.get('description', None)
+        price = request.form.get('price', None)
+        active = request.form.get('active', None)
+        print(name)
+        p=Product(name=name, description=description, price=price)
+        if active is None:
+            p.active = 0
+        else:
+            p.active = 1
+
+        db.session.add(p)
+        db.session.commit()
+
+        return "done"
