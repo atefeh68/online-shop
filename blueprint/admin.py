@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, session, abort
+from flask import Blueprint, render_template, request, redirect, session, abort, url_for
 import config
 from extentions import db
 from models.product import Product
@@ -34,7 +34,6 @@ def dashboard():
 def product():
     if request.method == "GET":
        products = Product.query.all()
-       i=0
        return render_template("admin/products.html",products=products)
     else:
         name = request.form.get('name', None)
@@ -52,3 +51,33 @@ def product():
         db.session.commit()
 
         return "done"
+
+@app.route('/admin/dashboard/edit-product/<id>', methods=["GET","POST"])
+def edit_product(id):
+    products = Product.query.filter(Product.id == id).first_or_404()
+
+    if request.method == "GET":
+       return render_template("admin/edit-product.html",products=products)
+    else:
+        name = request.form.get('name', None)
+        description = request.form.get('description', None)
+        price = request.form.get('price', None)
+        active = request.form.get('active', None)
+
+        products.name = name
+        products.description = description
+        products.price = price
+        products.active = active
+
+        if active is None:
+            products.active = 0
+        else:
+            products.active = 1
+
+
+        db.session.commit()
+
+        return redirect(url_for("admin.product" ,id=id))
+
+
+

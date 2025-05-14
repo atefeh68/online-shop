@@ -3,19 +3,22 @@
     <title>admin product</title>
 
 {% endblock %}
-<style>
-    table,td,th{
-        border: 1px solid black;
-    }
-</style>
+
 {% block body %}
     <table>
+    <style>
+    table,td,th{
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+</style>
     <tr>
         <th>ردیف</th>
         <th>نام محصول</th>
         <th>توضیحات</th>
         <th>قیمت</th>
         <th>فعال</th>
+        <th>ویرایش</th>
     </tr>
     {% for p in products %}
 
@@ -27,6 +30,7 @@
         <td>{{p.description}}</td>
         <td>{{p.price}}</td>
         <td>{{p.active}}</td>
+            <td><a href="/admin/dashboard/edit-product/{{p.id}}">ویرایش</a></td>
         </tr>
 
     {% endfor %}
