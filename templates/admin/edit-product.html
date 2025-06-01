@@ -6,18 +6,19 @@
 
 {% block body %}
     <form action="#" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <label>
-            <input type="text" name="name" value="{{products.name}}" placeholder="نام محصول"><br>
+            <input type="text" name="name" value="{{ products.name }}" placeholder="نام محصول"><br>
         </label>
         <label>
-            <textarea name="description"  placeholder="توضیحات">{{products.description}}</textarea><br>
+            <textarea name="description" placeholder="توضیحات">{{ products.description }}</textarea><br>
         </label>
         <label>
-            <input type="number" value="{{products.price}}" name="price" placeholder=" قیمت محصول"><br>
+            <input type="number" value="{{ products.price }}" name="price" placeholder=" قیمت محصول"><br>
         </label>
-    <label>فعال:</label><label>
-        <input type="checkbox" value=1 name="active" {{"checked" if products.active == 1 }}>
+        <label>فعال:</label><label>
+        <input type="checkbox" value=1 name="active" {{ "checked" if products.active == 1 }}>
     </label><br>
-    <input type="submit" value="ارسال">
+        <input type="submit" value="ارسال">
     </form>
 {% endblock %}

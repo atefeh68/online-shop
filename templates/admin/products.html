@@ -6,37 +6,38 @@
 
 {% block body %}
     <table>
-    <style>
-    table,td,th{
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
-</style>
-    <tr>
-        <th>ردیف</th>
-        <th>نام محصول</th>
-        <th>توضیحات</th>
-        <th>قیمت</th>
-        <th>فعال</th>
-        <th>ویرایش</th>
-    </tr>
-    {% for p in products %}
-
+        <style>
+            table, td, th {
+                border: 1px solid #cb2020;
+                border-collapse: collapse;
+            }
+        </style>
         <tr>
-
-        <td>{{p.id}}</td>
-
-        <td>{{p.name}}</td>
-        <td>{{p.description}}</td>
-        <td>{{p.price}}</td>
-        <td>{{p.active}}</td>
-            <td><a href="/admin/dashboard/edit-product/{{p.id}}">ویرایش</a></td>
+            <th>ردیف</th>
+            <th>نام محصول</th>
+            <th>توضیحات</th>
+            <th>قیمت</th>
+            <th>فعال</th>
+            <th>ویرایش</th>
         </tr>
+        {% for p in products %}
 
-    {% endfor %}
+            <tr>
+
+                <td>{{ p.id }}</td>
+
+                <td>{{ p.name }}</td>
+                <td>{{ p.description }}</td>
+                <td>{{ p.price }}</td>
+                <td>{{ p.active }}</td>
+                <td><a href="/admin/dashboard/edit-product/{{ p.id }}">ویرایش</a></td>
+            </tr>
+
+        {% endfor %}
 
     </table>
     <form action="#" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <label>
             <input type="text" name="name" placeholder="نام محصول"><br>
         </label>
@@ -46,9 +47,9 @@
         <label>
             <input type="number" name="price" placeholder=" قیمت محصول"><br>
         </label>
-    <label>فعال:</label><label>
+        <label>فعال:</label><label>
         <input type="checkbox" value="1" name="active">
     </label><br>
-    <input type="submit" value="ارسال">
+        <input type="submit" value="ارسال">
     </form>
 {% endblock %}
