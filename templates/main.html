@@ -1,14 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'base.html'%}
 {% block header %}
-    <title>فروشگاه اینترنتی بزرگ </title>
+ <title>فروشگاه اینترنتی بزرگ</title>
 
 {% endblock %}
 
 {% block body %}
 
     {% for p in products %}
-        {{ p.name }}
-        {{ p.price }}
+        <a href={{url_for('general.product', id=p.id , name =p.name) }}>{{ p.name }}</a>
     {% endfor %}
 
 {% endblock %}
